@@ -11,7 +11,7 @@ import './BookList.css'
 const BookList = () => {
 	const books = useSelector(state => state.books)
 	const titleFilter = useSelector(selecTitleFilter)
-	const autorFilter = useSelector(selecAuthorFilter)
+	const authorFilter = useSelector(selecAuthorFilter)
 	const onlyFavoriteFilter = useSelector(selecOnlyFavoriteFilter)
 	const dispatch = useDispatch()
 
@@ -29,11 +29,29 @@ const BookList = () => {
 			.includes(titleFilter.toLowerCase())
 		const matchesAuthor = book.authorBook
 			.toLowerCase()
-			.includes(autorFilter.toLowerCase())
+			.includes(authorFilter.toLowerCase())
 		const matchesFavorite = onlyFavoriteFilter ? book.isFavorite : true
 		return matchesTitle && matchesAuthor && matchesFavorite
 	})
 
+	const highlightMatch = (text, filter) => {
+		if (!filter) return text
+
+		const regex = new RegExp(`(${filter})`, 'gi')
+		return text.split(regex).map((substring, i) => {
+			if (substring.toLowerCase() === filter.toLowerCase()) {
+				return (
+					<span
+						key={i}
+						className='highlight'
+					>
+						{substring}
+					</span>
+				)
+			}
+			return substring
+		})
+	}
 	return (
 		<div className='app-block book-list'>
 			<h2>Book List</h2>
@@ -45,7 +63,10 @@ const BookList = () => {
 						return (
 							<li key={book.id}>
 								<div className='book-info'>
-									{++i}. {book.titleBook} by <strong>{book.authorBook}</strong>
+									{++i}. {highlightMatch(book.titleBook, titleFilter)} by{' '}
+									<strong>
+										{highlightMatch(book.authorBook, authorFilter)}
+									</strong>
 								</div>
 								<div className='book-actions'>
 									<span onClick={() => handleToggleFavorite(book.id)}>
