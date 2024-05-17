@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addBook, fetchBook } from '../../redux/sliices/bookSlices'
+import { addBook, fetchBook } from '../../redux/slices/bookSlices'
+import { setError } from '../../redux/slices/errorSlice'
 import createBookWithID from '../../utils/createBookWithID'
 import booksData from '../../data/books.json'
 import './BookForm.css'
 
 const BookForm = () => {
-	const [titleBook, setTitle] = useState('')
-	const [authorBook, setAuthor] = useState('')
+	const [titleBook, setTitleBook] = useState('')
+	const [authorBook, setAuthorBook] = useState('')
 	const dispatch = useDispatch()
 
 	const handleAddRandomBook = () => {
@@ -23,13 +24,15 @@ const BookForm = () => {
 
 		if (titleBook && authorBook) {
 			dispatch(addBook(createBookWithID({ titleBook, authorBook }, 'manual')))
-			setTitle('')
-			setAuthor('')
+			setTitleBook('')
+			setAuthorBook('')
+		} else {
+			dispatch(setError('You must fill title and author!'))
 		}
 	}
 
 	const handleAddRandomBookViaAPI = () => {
-		dispatch(fetchBook())
+		dispatch(fetchBook('http://localhost:4000/random-book-delayed'))
 	}
 
 	return (
@@ -42,14 +45,14 @@ const BookForm = () => {
 						type='text'
 						id='title'
 						value={titleBook}
-						onChange={e => setTitle(e.target.value)}
+						onChange={e => setTitleBook(e.target.value)}
 					/>
 					<label htmlFor='author'>Author:</label>
 					<input
-						type='author'
+						type='text'
 						id='author'
 						value={authorBook}
-						onChange={e => setAuthor(e.target.value)}
+						onChange={e => setAuthorBook(e.target.value)}
 					/>
 					<button type='submit'>Add Book</button>
 					<button

@@ -4,12 +4,12 @@ import {
 	delBook,
 	toggleFavorite,
 	selecBooks,
-} from '../../redux/sliices/bookSlices'
+} from '../../redux/slices/bookSlices'
 import {
 	selecTitleFilter,
 	selecAuthorFilter,
 	selecOnlyFavoriteFilter,
-} from '../../redux/sliices/filterSlice'
+} from '../../redux/slices/filterSlice'
 import './BookList.css'
 
 const BookList = () => {
