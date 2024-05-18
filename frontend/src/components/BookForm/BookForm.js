@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FaSpinner } from 'react-icons/fa'
 import {
 	addBook,
+	clearBook,
 	fetchBook,
 	selectIsLoadingViaAPI,
 } from '../../redux/slices/bookSlices'
@@ -35,6 +36,10 @@ const BookForm = () => {
 		} else {
 			dispatch(setError('You must fill title and author!'))
 		}
+	}
+
+	const handleClearAll = () => {
+		dispatch(clearBook())
 	}
 
 	const handleAddRandomBookViaAPI = () => {
@@ -84,6 +89,12 @@ const BookForm = () => {
 						) : (
 							'Add Random via API'
 						)}
+					</button>
+					<button
+						type='button'
+						onClick={handleClearAll}
+					>
+						Clear all
 					</button>
 				</div>
 			</form>

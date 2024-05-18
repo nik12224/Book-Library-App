@@ -38,6 +38,12 @@ const bookSlice = createSlice({
 				books: state.books.filter(book => book.id !== action.payload),
 			}
 		},
+		clearBook: state => {
+			return {
+				...state,
+				books: [],
+			}
+		},
 		toggleFavorite: (state, action) => {
 			state.books.forEach(book => {
 				if (book.id === action.payload) {
@@ -86,7 +92,7 @@ const bookSlice = createSlice({
 	// },
 })
 
-export const { addBook, delBook, toggleFavorite } = bookSlice.actions
+export const { addBook, delBook, toggleFavorite, clearBook } = bookSlice.actions
 
 export const selecBooks = state => state.books.books
 export const selectIsLoadingViaAPI = state => state.books.isLoadingViaAPI
