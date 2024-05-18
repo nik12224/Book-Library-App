@@ -46,20 +46,24 @@ const BookForm = () => {
 			<h2>Add a new Book</h2>
 			<form onSubmit={handleSubmit}>
 				<div>
-					<label htmlFor='title'>Title:</label>
-					<input
-						type='text'
-						id='title'
-						value={titleBook}
-						onChange={e => setTitleBook(e.target.value)}
-					/>
-					<label htmlFor='author'>Author:</label>
-					<input
-						type='text'
-						id='author'
-						value={authorBook}
-						onChange={e => setAuthorBook(e.target.value)}
-					/>
+					<div>
+						<label htmlFor='title'>Title:</label>
+						<input
+							type='text'
+							id='title'
+							value={titleBook}
+							onChange={e => setTitleBook(e.target.value)}
+						/>
+					</div>
+					<div>
+						<label htmlFor='author'>Author:</label>
+						<input
+							type='text'
+							id='author'
+							value={authorBook}
+							onChange={e => setAuthorBook(e.target.value)}
+						/>
+					</div>
 					<button type='submit'>Add Book</button>
 					<button
 						type='button'
